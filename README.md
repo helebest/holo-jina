@@ -17,13 +17,10 @@ Jina AI Reader - 网页内容抓取工具，能够绕过付费墙，返回干净
 
 ```bash
 # 克隆仓库
-git clone https://github.com/helebest/holo-jina.git ~/.openclaw/skills/holo-jina
-```
+git clone https://github.com/helebest/holo-jina.git ~/projects/holo-jina
 
-或使用部署脚本：
-
-```bash
-bash openclaw_deploy_skill.sh
+# 部署到 OpenClaw
+cd ~/projects/holo-jina && bash openclaw_deploy_skill.sh
 ```
 
 ## 使用方法
