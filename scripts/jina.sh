@@ -3,7 +3,14 @@
 # 用法: bash jina.sh <url>
 #       bash jina.sh help
 
-JINA_BASE="https://r.jina.ai"
+# 检查是否有 API Key
+JINA_API_KEY_FILE="${HOME}/.openclaw/credentials/jina_api_key.txt"
+if [ -f "$JINA_API_KEY_FILE" ]; then
+    JINA_API_KEY=$(cat "$JINA_API_KEY_FILE")
+    USE_API_KEY=true
+else
+    USE_API_KEY=false
+fi
 
 case "${1:-}" in
   help|--help|-h)
@@ -18,13 +25,12 @@ case "${1:-}" in
     echo "  bash jina.sh \"https://twitter.com/elonmusk/status/123456789\""
     echo "  bash jina.sh \"https://zh.wikipedia.org/wiki/人工智能\""
     echo ""
-    echo "原理: 在任意网址前加上 https://r.jina.ai/ 前缀"
+    echo "API Key: $([ "$USE_API_KEY" = true ] && echo "已配置 (100 RPM)" || echo "未配置")"
     exit 0
     ;;
   "")
     echo "错误: 请提供要抓取的 URL"
     echo "用法: bash jina.sh <url>"
-    echo "帮助: bash jina.sh help"
     exit 1
     ;;
   *)
@@ -33,6 +39,14 @@ case "${1:-}" in
     if [[ ! "$URL" =~ ^https?:// ]]; then
       URL="https://$URL"
     fi
-    curl -s "$JINA_BASE/$URL"
+    
+    if [ "$USE_API_KEY" = true ]; then
+      # 有 API Key - 加 Authorization header（100 RPM）
+      curl -s "https://r.jina.ai/$URL" \
+        -H "Authorization: Bearer $JINA_API_KEY"
+    else
+      # 无 API Key - 不用 header（有限制）
+      curl -s "https://r.jina.ai/$URL"
+    fi
     ;;
 esac

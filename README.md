@@ -27,13 +27,8 @@ cd ~/projects/holo-jina && bash openclaw_deploy_skill.sh
 
 ### 基本用法
 
-在任意网址前加上 `https://r.jina.ai/` 前缀即可：
-
 ```bash
-# 方式1：直接用 curl
-curl -s "https://r.jina.ai/https://example.com/article"
-
-# 方式2：用脚本
+# 用脚本
 bash {baseDir}/scripts/jina.sh "https://example.com/article"
 ```
 
@@ -42,6 +37,23 @@ bash {baseDir}/scripts/jina.sh "https://example.com/article"
 ```bash
 bash {baseDir}/scripts/jina.sh help
 ```
+
+## API Key 配置（可选）
+
+脚本支持两种模式：
+
+| 模式 | 速率限制 | 用法 |
+|------|---------|------|
+| 无 API Key | IP 基础限制 | 直接使用 |
+| 有 API Key | 100 RPM | 配置 Key 后自动启用 |
+
+### 配置 API Key
+
+1. 去 https://jina.ai/ 注册免费账号
+2. 获取 API Key
+3. 保存到：`~/.openclaw/credentials/jina_api_key.txt`
+
+配置后脚本会自动在请求中添加 Authorization header，有更高的速率限制。
 
 ## 示例
 
@@ -80,9 +92,9 @@ Markdown Content:
 - ✅ 绕过付费墙
 - ✅ 支持 Twitter/X 推文
 - ✅ 返回干净 Markdown 格式
-- ✅ 免费，无需 API Key
 - ✅ 包含结构化 meta（标题、作者、发布时间）
 - ✅ 支持任何网页内容抓取
+- ✅ 支持可选 API Key（100 RPM）
 
 ## 测试
 
@@ -114,6 +126,8 @@ Jina Reader API 会：
 3. 提取结构化 meta (标题、时间、作者)
 4. 转换为 Markdown 格式
 5. 绕过常见的付费墙限制
+
+同一端点 `r.jina.ai`，加 Authorization header 可获得更高速率限制。
 
 ## 相关链接
 
