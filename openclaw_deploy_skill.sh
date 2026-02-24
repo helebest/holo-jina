@@ -39,19 +39,11 @@ cp "$PROJECT_DIR/SKILL.md" "$TARGET_DIR/"
 rm -rf "$TARGET_DIR/scripts"
 cp -r "$PROJECT_DIR/scripts" "$TARGET_DIR/"
 
-# 复制 tests 目录 (可选)
-rm -rf "$TARGET_DIR/tests"
-cp -r "$PROJECT_DIR/tests" "$TARGET_DIR/"
-
 # 设置权限
 chmod +x "$TARGET_DIR/scripts/jina.sh"
-chmod +x "$TARGET_DIR/tests/test.sh"
 
 echo ""
 echo "✅ 部署完成!"
 echo ""
 echo "使用方式:"
 echo "  bash $TARGET_DIR/scripts/jina.sh \"https://example.com\""
-echo ""
-echo "测试:"
-echo "  bash $TARGET_DIR/tests/test.sh"
