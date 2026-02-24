@@ -1,9 +1,3 @@
----
-name: holo-jina
-description: Jina AI Reader - 网页内容抓取工具，能够绕过付费墙，返回干净的 Markdown 格式内容。
-homepage: https://github.com/helebest/holo-jina
----
-
 # Holo Jina
 
 Jina AI Reader - 网页内容抓取工具，能够绕过付费墙，返回干净的 Markdown 格式内容。
